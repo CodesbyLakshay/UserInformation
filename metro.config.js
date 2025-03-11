@@ -8,4 +8,19 @@ const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
  */
 const config = {};
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = {
+  watcher: {
+    watchman: {
+      // Reduce the number of files watched by excluding unnecessary directories
+      ignore_dirs: ['node_modules', 'ios/Pods'],
+    },
+  },
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: true,
+      },
+    }),
+  },
+};
